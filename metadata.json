@@ -1,0 +1,6 @@
+{
+  "name": "Pride and Joy Consultants Website",
+  "description": "Professional, mobile-responsive corporate website for Pride and Joy Consultants (Pty) Ltd with a built-in online consulting scheduler.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
