@@ -185,7 +185,7 @@ export default function BookingForm({ initialCategory, onBookingSuccess }: Booki
     setIsLoading(true);
 
     // Formulate JSON Payload exactly as requested
-    const WORKER_URL = (import.meta as any).env.VITE_CLOUDFLARE_WORKER_URL || "https://my-grafix-forms-engine.mygrafixmedia.workers.dev";
+    const WORKER_URL = (import.meta as any).env.VITE_CLOUDFLARE_WORKER_URL || "https://mygrafix-email-api.mygrafix.workers.dev";
     
     const payload = {
       clientId: "pride-and-joy",
