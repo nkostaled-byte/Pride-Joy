@@ -26,7 +26,7 @@ export default function AdminDashboard({ onClose }: AdminDashboardProps) {
     setIsLoadingFromWorker(true);
     setWorkerFetchStatus('idle');
 
-    const WORKER_URL = (import.meta as any).env.VITE_CLOUDFLARE_WORKER_URL || "https://my-grafix-forms-engine.mygrafixmedia.workers.dev";
+    const WORKER_URL = (import.meta as any).env.VITE_CLOUDFLARE_WORKER_URL || "https://mygrafix-email-api.mygrafix.workers.dev";
     
     // Attempt multiple fetch routes to be incredibly robust
     const urlsToTry = [
