@@ -19,9 +19,11 @@ export default function Contact({ setCurrentPage }: ContactProps) {
   const [cMessage, setCMessage] = useState('');
   const [isSuccess, setIsSuccess] = useState(false);
   const [error, setError] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (isSubmitting) return;
     setError('');
 
     if (!cName.trim() || !cEmail.trim() || !cMessage.trim()) {
@@ -35,11 +37,57 @@ export default function Contact({ setCurrentPage }: ContactProps) {
       return;
     }
 
-    // Success State
-    setIsSuccess(true);
-    setCName('');
-    setCEmail('');
-    setCMessage('');
+    setIsSubmitting(true);
+
+    const WORKER_URL = import.meta.env.VITE_CLOUDFLARE_WORKER_URL || '';
+
+    const payload = {
+      clientId: "pride-and-joy",
+      formName: "contact",
+      action: "submit",
+
+      customer: {
+        name: cName,
+        email: cEmail,
+        phone: ""
+      },
+
+      fields: {
+        Message: cMessage,
+        SubmittedAt: new Date().toISOString()
+      }
+    };
+
+    try {
+      if (WORKER_URL) {
+        const response = await fetch(WORKER_URL, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify(payload)
+        });
+
+        const result = await response.json();
+        if (!response.ok || !result.success) {
+          throw new Error(result.error || 'Failed to submit contact enquiry.');
+        }
+      } else {
+        // Fallback for local development or unset environment variables
+        await new Promise((resolve) => setTimeout(resolve, 800));
+      }
+
+      // Success State
+      setIsSuccess(true);
+      setCName('');
+      setCEmail('');
+      setCMessage('');
+    } catch (err: any) {
+      console.error("Contact Form submission error:", err);
+      setError(err?.message || "There was an error sending your message. Please try again later.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -51,12 +99,6 @@ export default function Contact({ setCurrentPage }: ContactProps) {
         
         {/* Page Header */}
         <div className="text-left max-w-4xl space-y-4">
-          <div className="inline-flex items-center space-x-2 bg-brand-maroon/5 border border-brand-maroon/10 px-3.5 py-1.5 rounded-full">
-            <Mail className="w-4 h-4 text-brand-maroon" />
-            <span className="font-sans font-bold text-xs text-brand-maroon uppercase tracking-wide">
-              Immediate Client Support • Durban Head Office
-            </span>
-          </div>
           <h1 className="font-display font-extrabold text-4xl md:text-5xl text-gray-900 tracking-tight leading-tight">
             Connect with Our Advisors
           </h1>
@@ -210,19 +252,30 @@ export default function Contact({ setCurrentPage }: ContactProps) {
 
                 <button
                   type="submit"
-                  className="w-full py-4 bg-brand-maroon hover:bg-brand-maroon-hover text-white font-sans font-extrabold text-base rounded-xl transition-all shadow-md"
+                  disabled={isSubmitting}
+                  className="w-full py-4 bg-brand-maroon hover:bg-brand-maroon-hover text-white font-sans font-extrabold text-base rounded-xl transition-all shadow-md flex items-center justify-center disabled:opacity-75 disabled:cursor-not-allowed"
                 >
-                  Send Corporate Enquiry
+                  {isSubmitting ? (
+                    <>
+                      <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" fill="none" viewBox="0 0 24 24">
+                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
+                      </svg>
+                      Transmitting Enquiry...
+                    </>
+                  ) : (
+                    'Send Corporate Enquiry'
+                  )}
                 </button>
               </form>
             )}
           </div>
         </div>
 
-        {/* Durban Location Map Placeholder */}
+        {/* Location Map Placeholder */}
         <div className="space-y-4">
           <div className="text-left">
-            <h2 className="font-display font-extrabold text-2xl text-gray-900 tracking-tight">Our Durban Headquarters</h2>
+            <h2 className="font-display font-extrabold text-2xl text-gray-900 tracking-tight">Our Corporate Headquarters</h2>
             <p className="font-sans text-xs text-gray-400 mt-1">Conveniently located for public transit and corporate briefings.</p>
           </div>
 
@@ -240,14 +293,14 @@ export default function Contact({ setCurrentPage }: ContactProps) {
                 <div className="absolute left-1/2 top-0 bottom-0 w-1 bg-gray-500" />
               </div>
 
-              {/* Blue sea representation at the right side (Durban Beachfront) */}
+              {/* Blue water representation at the right side */}
               <div className="absolute right-0 top-0 bottom-0 w-1/4 bg-blue-100/60 flex items-center justify-center border-l border-dashed border-blue-200">
                 <span className="font-display text-[10px] uppercase tracking-wider font-bold text-blue-400 rotate-90 whitespace-nowrap">
-                  Indian Ocean
+                  Waterfront Area
                 </span>
               </div>
 
-              {/* Durban Port */}
+              {/* Local Port */}
               <div className="absolute right-[15%] bottom-0 w-24 h-24 rounded-t-full bg-blue-100/40 border border-blue-200" />
 
               {/* Map pin */}
@@ -257,7 +310,7 @@ export default function Contact({ setCurrentPage }: ContactProps) {
                 </div>
                 <div className="mt-2 bg-gray-900/90 backdrop-blur-xs text-white px-3 py-1.5 rounded-lg shadow-md border border-gray-800 text-xs text-center font-sans max-w-xs">
                   <p className="font-bold">Pride & Joy Consultants</p>
-                  <p className="text-[10px] text-gray-400">Durban Core Metro, KZN, ZA</p>
+                  <p className="text-[10px] text-gray-400">Metro Core, South Africa</p>
                 </div>
               </div>
             </div>

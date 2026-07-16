@@ -125,9 +125,13 @@ export default function App() {
       <Footer 
         setCurrentPage={setCurrentPage} 
         onOpenOwnerLogin={() => {
-          setLoginError('');
-          setPasscode('');
-          setIsLoginOpen(true);
+          if (isOwner) {
+            setIsAdminOpen(true);
+          } else {
+            setLoginError('');
+            setPasscode('');
+            setIsLoginOpen(true);
+          }
         }}
       />
 
@@ -183,9 +187,6 @@ export default function App() {
                     autoFocus
                   />
                 </div>
-                <div className="text-[10px] text-gray-400 font-sans text-center mt-1">
-                  Hint: Use <span className="font-bold text-brand-orange">2013</span> or <span className="font-bold text-brand-orange">admin</span> to test authentication.
-                </div>
               </div>
 
               <button
@@ -203,7 +204,16 @@ export default function App() {
       {isAdminOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-gray-950/60 backdrop-blur-sm overflow-y-auto">
           <div className="relative w-full max-w-6xl max-h-[90vh] overflow-y-auto rounded-3xl">
-            <AdminDashboard onClose={() => setIsAdminOpen(false)} />
+            <AdminDashboard 
+              onClose={() => setIsAdminOpen(false)} 
+              onLogout={() => {
+                setIsOwner(false);
+                setIsAdminOpen(false);
+                setPasscode('');
+                setLoginError('');
+                setIsLoginOpen(true);
+              }}
+            />
           </div>
         </div>
       )}

@@ -49,7 +49,7 @@ export default function Footer({ setCurrentPage, onOpenOwnerLogin }: FooterProps
             </div>
             
             <p className="font-sans text-sm leading-relaxed text-gray-400">
-              A 100% black-owned, Durban-based business consulting firm providing actionable, scientifically sound recommendations since 2013.
+              A 100% black-owned business consulting firm providing actionable, scientifically sound recommendations since 2013.
             </p>
 
             <div className="flex space-x-3">
@@ -166,7 +166,7 @@ export default function Footer({ setCurrentPage, onOpenOwnerLogin }: FooterProps
           <div className="flex flex-col space-y-1 text-center md:text-left">
             <p>Pride and Joy Consultants (Pty) Ltd — Reg No: 2013/024409/07</p>
             <div className="flex items-center justify-center md:justify-start space-x-2">
-              <p>Nkosingiphile Mchunu (Founder & Managing Director)</p>
+              <p>Founder & Managing Director</p>
               <span>•</span>
               <button 
                 onClick={onOpenOwnerLogin} 

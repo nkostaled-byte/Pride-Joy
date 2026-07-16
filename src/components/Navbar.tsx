@@ -60,13 +60,13 @@ export default function Navbar({ currentPage, setCurrentPage, onOpenAdmin, isOwn
           </div>
 
           {/* Desktop Navigation Links */}
-          <nav className="hidden lg:flex items-center space-x-1">
+          <nav className="hidden lg:flex items-center space-x-0.5 xl:space-x-1">
             {navLinks.map((link) => (
               <button
                 key={link.id}
                 id={`nav-${link.id}`}
                 onClick={() => handleNavClick(link.id)}
-                className={`px-3 py-2 rounded-md font-sans text-sm font-medium transition-all duration-200 ${
+                className={`px-2 xl:px-3 py-2 rounded-md font-sans text-xs xl:text-sm font-semibold whitespace-nowrap transition-all duration-200 ${
                   currentPage === link.id
                     ? 'text-brand-maroon bg-gray-50 border-b-2 border-brand-maroon rounded-b-none'
                     : 'text-gray-600 hover:text-brand-maroon hover:bg-gray-50/50'
@@ -78,35 +78,18 @@ export default function Navbar({ currentPage, setCurrentPage, onOpenAdmin, isOwn
           </nav>
 
           {/* CTA & Actions */}
-          <div className="hidden lg:flex items-center space-x-3">
-            {isOwner && (
-              <button
-                onClick={onOpenAdmin}
-                title="Admin Panel"
-                className="p-2 text-gray-400 hover:text-brand-maroon hover:bg-gray-100 rounded-lg transition-colors duration-200"
-              >
-                <Settings className="w-5 h-5" />
-              </button>
-            )}
+          <div className="hidden lg:flex items-center space-x-3 ml-6 xl:ml-8">
             <button
               onClick={() => handleNavClick('book-online')}
-              className="inline-flex items-center justify-center px-5 py-2.5 rounded-xl bg-brand-orange text-white font-sans font-semibold text-sm shadow-md transition-all duration-200 hover:bg-brand-orange-hover hover:shadow-lg focus:outline-hidden focus:ring-2 focus:ring-brand-orange/50 active:scale-98"
+              className="inline-flex items-center justify-center h-10 px-4 rounded-[10px] bg-gradient-to-r from-brand-orange to-[#F28B2B] hover:from-[#c45f09] hover:to-brand-orange text-white font-sans font-semibold text-xs xl:text-sm shadow-md transition-all duration-200 hover:shadow-lg focus:outline-hidden focus:ring-2 focus:ring-brand-orange/50 active:scale-98"
             >
-              <Calendar className="w-4 h-4 mr-2" />
+              <Calendar className="w-3.5 h-3.5 mr-1.5" />
               Book Consultation
             </button>
           </div>
 
           {/* Mobile Menu Trigger & Action Icon */}
           <div className="flex items-center space-x-2 lg:hidden">
-            {isOwner && (
-              <button
-                onClick={onOpenAdmin}
-                className="p-2 text-gray-500 hover:text-brand-maroon rounded-lg"
-              >
-                <Settings className="w-5 h-5" />
-              </button>
-            )}
             <button
               onClick={() => setIsOpen(!isOpen)}
               className="p-2.5 rounded-xl text-gray-600 hover:text-brand-maroon hover:bg-gray-100 focus:outline-hidden transition-colors"
@@ -138,9 +121,9 @@ export default function Navbar({ currentPage, setCurrentPage, onOpenAdmin, isOwn
             <div className="pt-4 border-t border-gray-100 mt-2">
               <button
                 onClick={() => handleNavClick('book-online')}
-                className="flex items-center justify-center w-full px-4 py-3.5 rounded-xl bg-brand-orange text-white font-sans font-bold text-center shadow-md hover:bg-brand-orange-hover"
+                className="flex items-center justify-center w-full h-11 px-5 rounded-[10px] bg-gradient-to-r from-brand-orange to-[#F28B2B] hover:from-[#c45f09] hover:to-brand-orange text-white font-sans font-semibold text-sm shadow-md transition-all duration-200"
               >
-                <Calendar className="w-5 h-5 mr-2" />
+                <Calendar className="w-3.5 h-3.5 mr-1.5" />
                 Book Consultation Now
               </button>
             </div>

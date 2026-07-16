@@ -66,12 +66,6 @@ export default function TrainingConsulting({ setCurrentPage, setBookingCategory 
         
         {/* Page Header */}
         <div className="text-left max-w-4xl space-y-4">
-          <div className="inline-flex items-center space-x-2 bg-brand-maroon/5 border border-brand-maroon/10 px-3.5 py-1.5 rounded-full">
-            <GraduationCap className="w-4 h-4 text-brand-maroon" />
-            <span className="font-sans font-bold text-xs text-brand-maroon uppercase tracking-wide">
-              Capacity-Building Pillar • L&D Enterprise Excellence
-            </span>
-          </div>
           <h1 className="font-display font-extrabold text-4xl md:text-5xl text-gray-900 tracking-tight leading-tight">
             Business Training & SME Consulting
           </h1>

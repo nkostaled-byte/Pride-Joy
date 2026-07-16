@@ -185,24 +185,26 @@ export default function BookingForm({ initialCategory, onBookingSuccess }: Booki
     setIsLoading(true);
 
     // Formulate JSON Payload exactly as requested
-    const WORKER_URL = (import.meta as any).env.VITE_CLOUDFLARE_WORKER_URL || "https://mygrafix-email-api.mygrafix.workers.dev";
+    const WORKER_URL = import.meta.env.VITE_CLOUDFLARE_WORKER_URL;
     
     const payload = {
       clientId: "pride-and-joy",
       formName: "booking",
-      website: window.location.origin || "https://prideandjoyonline.co.za",
+      action: "submit",
+
       customer: {
-        name: name,
-        email: email
+        name,
+        email,
+        phone
       },
+
       fields: {
-        phone: phone,
-        businessName: company || "Not Provided",
-        service: category,
-        consultationType: consultationType,
-        preferredDate: date,
-        preferredTime: time,
-        message: description || "No message provided."
+        Service: category,
+        Consultation: consultationType,
+        Date: date,
+        Time: time,
+        Company: company || "Private Client",
+        Description: description
       }
     };
 
@@ -392,7 +394,7 @@ export default function BookingForm({ initialCategory, onBookingSuccess }: Booki
               <div className="text-right">
                 <span className="text-gray-400 block text-xs uppercase tracking-wider font-semibold">Status</span>
                 <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold bg-emerald-50 text-emerald-800 border border-emerald-200">
-                  Transmitted to Resend
+                  Booking confirmed
                 </span>
               </div>
             </div>
@@ -403,7 +405,7 @@ export default function BookingForm({ initialCategory, onBookingSuccess }: Booki
             <div className="text-xs text-brand-maroon space-y-1 font-sans">
               <p className="font-bold">Important Instructions:</p>
               <p className="leading-relaxed">
-                Nkosingiphile Mchunu or a senior research consultant is evaluating your business profile. You should receive a verified calendar invite (Teams/Zoom) within 12 business hours. If you need immediate assistance, please telephone <strong>073 508 5200</strong>.
+                Our senior business advisors are evaluating your business profile. You should receive a verified calendar invite (Teams/Zoom) within 12 business hours. If you need immediate assistance, please telephone <strong>073 508 5200</strong>.
               </p>
             </div>
           </div>
@@ -442,7 +444,7 @@ export default function BookingForm({ initialCategory, onBookingSuccess }: Booki
           Request an Advisor Consultation
         </h3>
         <p className="font-sans text-sm text-gray-500 leading-relaxed">
-          Select your business focus area, preferred format, and schedule a slot with Nkosingiphile and our Durban-based analyst team.
+          Select your business focus area, preferred format, and schedule a slot with our senior business advisors and analyst team.
         </p>
       </div>
 
@@ -489,7 +491,7 @@ export default function BookingForm({ initialCategory, onBookingSuccess }: Booki
           <div className="grid grid-cols-2 gap-2">
             {[
               { id: 'Online', label: 'Online Meeting' },
-              { id: 'In-Person', label: 'In-Person (Durban HQ)' },
+              { id: 'In-Person', label: 'In-Person (Headquarters)' },
             ].map((type) => (
               <button
                 type="button"
@@ -538,7 +540,7 @@ export default function BookingForm({ initialCategory, onBookingSuccess }: Booki
           </label>
           <input
             type="text"
-            placeholder="e.g. Durban Tourism Agency"
+            placeholder="e.g. Tourism Agency"
             value={company}
             onChange={(e) => setCompany(e.target.value)}
             className="w-full px-4 py-3 rounded-xl border border-gray-200 font-sans text-sm bg-gray-50 text-gray-800 focus:outline-hidden focus:ring-2 focus:ring-brand-maroon/30"

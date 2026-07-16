@@ -27,7 +27,7 @@ export default function Stats() {
       icon: <MapPin className="w-8 h-8 text-brand-orange" />,
       value: '3+',
       label: 'Metropolitan Hubs',
-      desc: 'Durban, Gauteng & Cape Town',
+      desc: 'Gauteng, Cape Town & Nationwide',
     },
     {
       id: 'stat-4',

@@ -4,7 +4,25 @@
  */
 
 import React from 'react';
-import { Users, Award, Shield, CheckCircle2, TrendingUp, Calendar, ChevronRight } from 'lucide-react';
+import { 
+  Users, 
+  Award, 
+  Shield, 
+  CheckCircle2, 
+  TrendingUp, 
+  Calendar, 
+  ChevronRight,
+  Droplet, 
+  Wrench, 
+  Factory, 
+  Compass, 
+  Building2, 
+  HeartHandshake, 
+  Film, 
+  Globe as GlobeIcon, 
+  ShieldCheck, 
+  Briefcase
+} from 'lucide-react';
 import { clientCompanies } from '../data/services';
 import AbstractShapes from '../components/AbstractShapes';
 import { PageId } from '../types';
@@ -13,10 +31,83 @@ interface ClientsPageProps {
   setCurrentPage: (page: PageId) => void;
 }
 
+// Custom client logo helper
+const getClientLogo = (name: string) => {
+  switch (name) {
+    case 'Umgeni Water':
+      return {
+        bg: 'bg-blue-50/80 border-blue-200 text-blue-600',
+        icon: <Droplet className="w-5 h-5 text-blue-600" />,
+        initials: 'UW'
+      };
+    case 'Protea Engineering':
+      return {
+        bg: 'bg-slate-100 border-slate-300 text-slate-700',
+        icon: <Wrench className="w-5 h-5 text-slate-700" />,
+        initials: 'PE'
+      };
+    case 'Hulamin':
+      return {
+        bg: 'bg-red-50/80 border-red-200 text-red-600',
+        icon: <Factory className="w-5 h-5 text-red-600" />,
+        initials: 'HL'
+      };
+    case 'Regional Tourism Board':
+    case 'Regional Tourism':
+      return {
+        bg: 'bg-emerald-50/80 border-emerald-200 text-emerald-600',
+        icon: <Compass className="w-5 h-5 text-emerald-600" />,
+        initials: 'RT'
+      };
+    case 'Metropolitan Municipality':
+      return {
+        bg: 'bg-purple-50 border-purple-200 text-purple-600',
+        icon: <Building2 className="w-5 h-5 text-purple-600" />,
+        initials: 'MM'
+      };
+    case 'Sizakala Centres':
+      return {
+        bg: 'bg-indigo-50 border-indigo-200 text-indigo-600',
+        icon: <HeartHandshake className="w-5 h-5 text-indigo-600" />,
+        initials: 'SZ'
+      };
+    case 'SEDA':
+      return {
+        bg: 'bg-amber-50 border-amber-200 text-amber-600',
+        icon: <TrendingUp className="w-5 h-5 text-amber-600" />,
+        initials: 'SD'
+      };
+    case 'Metro Film Commission':
+      return {
+        bg: 'bg-zinc-900 border-zinc-800 text-white',
+        icon: <Film className="w-5 h-5 text-zinc-100" />,
+        initials: 'MF'
+      };
+    case 'Atlas Finance':
+      return {
+        bg: 'bg-sky-50 border-sky-200 text-sky-700',
+        icon: <GlobeIcon className="w-5 h-5 text-sky-700" />,
+        initials: 'AF'
+      };
+    case 'Assupol':
+      return {
+        bg: 'bg-green-50 border-green-200 text-green-700',
+        icon: <ShieldCheck className="w-5 h-5 text-green-700" />,
+        initials: 'AP'
+      };
+    default:
+      return {
+        bg: 'bg-gray-50 border-gray-200 text-gray-600',
+        icon: <Briefcase className="w-5 h-5 text-gray-600" />,
+        initials: 'PJ'
+      };
+  }
+};
+
 export default function ClientsPage({ setCurrentPage }: ClientsPageProps) {
   const sectors = [
     { name: 'Public Sector', desc: 'Municipalities and utility bodies requiring social community assessments.' },
-    { name: 'Manufacturing', desc: 'Large scale Pietermaritzburg & Durban metal and engineering companies.' },
+    { name: 'Manufacturing', desc: 'Large scale regional metal and engineering companies.' },
     { name: 'Finance', desc: 'National insurance and micro-finance brands evaluating consumer preferences.' },
     { name: 'Tourism', desc: 'Official travel councils assessing tourist behaviors and local event impacts.' },
     { name: 'SME Development', desc: 'Agencies funding startup training workshops and structural business coaching.' }
@@ -24,9 +115,9 @@ export default function ClientsPage({ setCurrentPage }: ClientsPageProps) {
 
   // Professional corporate timeline data
   const milestones = [
-    { year: '2013', title: 'Founding Year', desc: 'Pride and Joy Consultants registered in Durban, South Africa by Nkosingiphile Mchunu.' },
+    { year: '2013', title: 'Founding Year', desc: 'Pride and Joy Consultants registered in South Africa to provide professional advisory services.' },
     { year: '2016', title: 'SAMRA Accreditation', desc: 'Officially registered as a member house under South African Market Research Association guidelines.' },
-    { year: '2019', title: 'Public Sector Expansion', desc: 'Selected to run multi-lingual community satisfaction surveys for eThekwini Metropolitan Municipality.' },
+    { year: '2019', title: 'Public Sector Expansion', desc: 'Selected to run multi-lingual community satisfaction surveys for major metropolitan municipalities.' },
     { year: '2023', title: 'Decade Milestone', desc: 'Celebrated 10 years of business advisory, establishing a firm BBBEE Level 1 rating.' },
     { year: '2026', title: 'Strategic Re-Positioning', desc: 'Focusing core offerings entirely around Market Research, L&D Business Training, and Marketing.' }
   ];
@@ -40,12 +131,6 @@ export default function ClientsPage({ setCurrentPage }: ClientsPageProps) {
         
         {/* Page Header */}
         <div className="text-left max-w-4xl space-y-4">
-          <div className="inline-flex items-center space-x-2 bg-brand-maroon/5 border border-brand-maroon/10 px-3.5 py-1.5 rounded-full">
-            <Users className="w-4 h-4 text-brand-maroon" />
-            <span className="font-sans font-bold text-xs text-brand-maroon uppercase tracking-wide">
-              Proven Track Record • Public & Private Collaborations
-            </span>
-          </div>
           <h1 className="font-display font-extrabold text-4xl md:text-5xl text-gray-900 tracking-tight leading-tight">
             Our Clients & Corporate Track Record
           </h1>
@@ -130,27 +215,33 @@ export default function ClientsPage({ setCurrentPage }: ClientsPageProps) {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 font-sans">
-            {clientCompanies.map((comp) => (
-              <div 
-                key={comp.name}
-                className="bg-white rounded-2xl border border-gray-100 p-6 md:p-8 flex items-start space-x-4 shadow-xs text-left"
-              >
-                <div className="w-10 h-10 rounded-lg bg-gray-50 border border-gray-100 text-brand-maroon flex items-center justify-center font-display font-bold text-xs shrink-0 select-none">
-                  PJ
-                </div>
-                <div className="space-y-2">
-                  <div className="flex flex-wrap items-center gap-2">
-                    <h3 className="font-display font-bold text-base text-gray-900">{comp.name}</h3>
-                    <span className="font-mono text-[9px] uppercase tracking-wider bg-gray-50 border border-gray-100 text-gray-500 px-2.5 py-0.5 rounded-sm">
-                      {comp.sector}
+            {clientCompanies.map((comp) => {
+              const logo = getClientLogo(comp.name);
+              return (
+                <div 
+                  key={comp.name}
+                  className="bg-white rounded-2xl border border-gray-100 p-6 md:p-8 flex items-start space-x-4 shadow-xs text-left hover:border-brand-maroon/20 hover:shadow-md transition-all duration-300 group"
+                >
+                  <div className={`w-12 h-12 rounded-xl border flex flex-col items-center justify-center shrink-0 select-none shadow-xs transition-transform group-hover:scale-105 duration-200 ${logo.bg}`}>
+                    {logo.icon}
+                    <span className="font-mono text-[9px] font-bold mt-1 leading-none opacity-80 uppercase">
+                      {logo.initials}
                     </span>
                   </div>
-                  <p className="text-xs md:text-sm text-gray-500 leading-relaxed">
-                    {comp.shortDesc}
-                  </p>
+                  <div className="space-y-2">
+                    <div className="flex flex-wrap items-center gap-2">
+                      <h3 className="font-display font-bold text-base text-gray-900 group-hover:text-brand-maroon transition-colors duration-200">{comp.name}</h3>
+                      <span className="font-mono text-[9px] uppercase tracking-wider bg-gray-50 border border-gray-100 text-gray-500 px-2.5 py-0.5 rounded-sm">
+                        {comp.sector}
+                      </span>
+                    </div>
+                    <p className="text-xs md:text-sm text-gray-500 leading-relaxed">
+                      {comp.shortDesc}
+                    </p>
+                  </div>
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
 

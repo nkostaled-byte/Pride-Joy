@@ -9,9 +9,10 @@ import { Booking } from '../types';
 
 interface AdminDashboardProps {
   onClose: () => void;
+  onLogout?: () => void;
 }
 
-export default function AdminDashboard({ onClose }: AdminDashboardProps) {
+export default function AdminDashboard({ onClose, onLogout }: AdminDashboardProps) {
   const [bookings, setBookings] = useState<Booking[]>([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [statusFilter, setStatusFilter] = useState<string>('all');
@@ -26,7 +27,7 @@ export default function AdminDashboard({ onClose }: AdminDashboardProps) {
     setIsLoadingFromWorker(true);
     setWorkerFetchStatus('idle');
 
-    const WORKER_URL = (import.meta as any).env.VITE_CLOUDFLARE_WORKER_URL || "https://mygrafix-email-api.mygrafix.workers.dev";
+    const WORKER_URL = import.meta.env.VITE_CLOUDFLARE_WORKER_URL;
     
     // Attempt multiple fetch routes to be incredibly robust
     const urlsToTry = [
@@ -105,13 +106,13 @@ export default function AdminDashboard({ onClose }: AdminDashboardProps) {
         const id = item.id || item.submissionId || fields.id || `PJ-${Math.floor(100000 + index * 100)}`;
         const name = item.customer_name || item.customerName || (item.customer && item.customer.name) || fields.name || item.name || 'Unknown Client';
         const email = item.customer_email || item.customerEmail || (item.customer && item.customer.email) || fields.email || item.email || '';
-        const company = fields.businessName || fields.company || item.company || item.businessName || 'Private Client';
-        const phone = fields.phone || item.phone || '';
-        const category = fields.service || fields.category || item.category || 'Market Research';
-        const consultationType = fields.consultationType === 'In-Person' || item.consultationType === 'in-person' ? 'in-person' : 'virtual';
-        const date = fields.preferredDate || fields.date || item.date || item.preferredDate || '';
-        const time = fields.preferredTime || fields.time || item.time || item.preferredTime || '';
-        const description = fields.message || fields.description || item.description || item.message || 'No message provided';
+        const company = item.ticket || fields.Company || fields.company || fields.ticket || fields.businessName || item.company || item.businessName || 'Private Client';
+        const phone = item.phone || fields.Phone || fields.phone || '';
+        const category = item.service || fields.Service || fields.service || fields.category || item.category || 'Market Research';
+        const consultationType = (item.barber === 'In-Person' || fields.Consultation === 'In-Person' || fields.consultation === 'In-Person' || fields.barber === 'In-Person' || fields.consultationType === 'In-Person' || item.consultationType === 'in-person' ? 'in-person' : 'virtual') as 'in-person' | 'virtual';
+        const date = item.date || fields.Date || fields.date || fields.preferredDate || item.preferredDate || '';
+        const time = item.time || fields.Time || fields.time || fields.preferredTime || item.preferredTime || '';
+        const description = fields.Description || fields.description || fields.message || item.description || item.message || 'No message provided';
         const status = item.status || fields.status || 'pending';
         const createdAt = item.created_at || item.createdAt || new Date().toISOString();
 
@@ -129,7 +130,7 @@ export default function AdminDashboard({ onClose }: AdminDashboardProps) {
           status,
           createdAt
         };
-      });
+      }).filter((b: Booking) => b.id !== 'PJ-883921' && b.id !== 'PJ-482910' && b.id !== 'PJ-192837' && b.name !== 'Sbusiso Cele' && b.name !== 'Thembeka Khumalo' && b.name !== 'Bruce Henderson');
 
       setBookings(mappedBookings);
       setWorkerFetchStatus('success');
@@ -140,7 +141,10 @@ export default function AdminDashboard({ onClose }: AdminDashboardProps) {
       console.log("D1 query returned no results, reading from Local Cache fallback.");
       const existing = localStorage.getItem('pj_bookings');
       if (existing) {
-        setBookings(JSON.parse(existing));
+        const parsed = JSON.parse(existing);
+        const filtered = parsed.filter((b: any) => b.id !== 'PJ-883921' && b.id !== 'PJ-482910' && b.id !== 'PJ-192837' && b.name !== 'Sbusiso Cele' && b.name !== 'Thembeka Khumalo' && b.name !== 'Bruce Henderson');
+        setBookings(filtered);
+        localStorage.setItem('pj_bookings', JSON.stringify(filtered));
       }
       setWorkerFetchStatus('local_fallback');
     }
@@ -170,58 +174,6 @@ export default function AdminDashboard({ onClose }: AdminDashboardProps) {
       localStorage.setItem('pj_bookings', JSON.stringify(updated));
       setBookings(updated);
     }
-  };
-
-  // Seed Demo Bookings
-  const seedDemoBookings = () => {
-    const sampleBookings: Booking[] = [
-      {
-        id: 'PJ-883921',
-        name: 'Sbusiso Cele',
-        company: 'Durban Film Office',
-        email: 'sbu.cele@durbanfilm.co.za',
-        phone: '031 311 4243',
-        category: 'Market Research',
-        consultationType: 'in-person',
-        date: '2026-07-20',
-        time: '10:30',
-        description: 'Conducting a socio-economic impact assessment of the Durban International Film Festival on local hospitality vendors.',
-        status: 'approved',
-        createdAt: new Date().toISOString(),
-      },
-      {
-        id: 'PJ-482910',
-        name: 'Thembeka Khumalo',
-        company: 'SEDA eThekwini',
-        email: 'tkhumalo@seda.org.za',
-        phone: '082 991 4231',
-        category: 'Training & Consulting',
-        consultationType: 'virtual',
-        date: '2026-07-21',
-        time: '14:30',
-        description: 'Planning a joint 3-day digital marketing and business management workshop for 45 Durban-based female youth startups.',
-        status: 'pending',
-        createdAt: new Date().toISOString(),
-      },
-      {
-        id: 'PJ-192837',
-        name: 'Bruce Henderson',
-        company: 'Hulamin Aluminium',
-        email: 'bruce.h@hulamin.co.za',
-        phone: '033 395 6111',
-        category: 'Marketing & Branding',
-        consultationType: 'virtual',
-        date: '2026-07-23',
-        time: '11:30',
-        description: 'Corporate brand positioning review and graphic design updates for the annual corporate sustainability reporting brochure.',
-        status: 'pending',
-        createdAt: new Date().toISOString(),
-      }
-    ];
-
-    localStorage.setItem('pj_bookings', JSON.stringify(sampleBookings));
-    setBookings(sampleBookings);
-    setWorkerFetchStatus('local_fallback');
   };
 
   // Clear All Bookings
@@ -285,9 +237,6 @@ export default function AdminDashboard({ onClose }: AdminDashboardProps) {
               </span>
             )}
           </div>
-          <p className="font-sans text-sm text-gray-500 mt-1 max-w-2xl leading-relaxed">
-            Administrative portal connected to your Cloudflare Forms Engine & D1 SQL relational database. View, search, and manage all consulting requests.
-          </p>
         </div>
         
         <div className="flex flex-wrap gap-2.5 shrink-0">
@@ -299,15 +248,6 @@ export default function AdminDashboard({ onClose }: AdminDashboardProps) {
           >
             <RefreshCcw className={`w-3.5 h-3.5 mr-1.5 ${isLoadingFromWorker ? 'animate-spin' : ''}`} />
             Refresh Sync
-          </button>
-
-          <button
-            onClick={seedDemoBookings}
-            className="inline-flex items-center px-4 py-2 bg-brand-maroon text-white font-sans font-bold text-xs rounded-xl shadow-xs hover:bg-brand-maroon-hover"
-            title="Pre-populate sample research schedules for testing"
-          >
-            <RefreshCcw className="w-3.5 h-3.5 mr-1.5" />
-            Seed Sample Data
           </button>
           
           <button
@@ -329,7 +269,11 @@ export default function AdminDashboard({ onClose }: AdminDashboardProps) {
             onClick={() => {
               if (window.confirm("Are you sure you want to lock the database and sign out from Owner Portal? This will hide the settings icon again.")) {
                 localStorage.removeItem('pj_is_owner');
-                window.location.reload();
+                if (onLogout) {
+                  onLogout();
+                } else {
+                  window.location.reload();
+                }
               }
             }}
             className="px-4 py-2 bg-red-600 text-white hover:bg-red-700 font-sans font-bold text-xs rounded-xl shadow-md"

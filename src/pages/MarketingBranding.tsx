@@ -30,12 +30,6 @@ export default function MarketingBranding({ setCurrentPage, setBookingCategory }
         
         {/* Page Header */}
         <div className="text-left max-w-4xl space-y-4">
-          <div className="inline-flex items-center space-x-2 bg-brand-orange/5 border border-brand-orange/10 px-3.5 py-1.5 rounded-full">
-            <Sparkles className="w-4 h-4 text-brand-orange" />
-            <span className="font-sans font-bold text-xs text-brand-orange uppercase tracking-wide">
-              Strategic Service Pillar • Premium Corporate Positioning
-            </span>
-          </div>
           <h1 className="font-display font-extrabold text-4xl md:text-5xl text-gray-900 tracking-tight leading-tight">
             Strategic Marketing & Brand Identity
           </h1>
@@ -91,10 +85,15 @@ export default function MarketingBranding({ setCurrentPage, setBookingCategory }
               </p>
             </div>
             
-            <div className="inline-flex items-center space-x-1.5 bg-brand-maroon/5 text-brand-maroon px-4 py-2 rounded-xl text-xs font-bold border border-brand-maroon/10">
+            <a 
+              href="https://collection.cloudinary.com/dvvugpu04/c26a9de0ae7cf97df2a7044e7bfbdc45"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center space-x-1.5 bg-brand-maroon/5 text-brand-maroon px-4 py-2 rounded-xl text-xs font-bold border border-brand-maroon/10 hover:bg-brand-maroon/10 transition-all duration-200 cursor-pointer hover:shadow-xs"
+            >
               <FileDown className="w-4 h-4 shrink-0" />
-              <span>Full physical product e-Catalog available on request</span>
-            </div>
+              <span>Full physical product e-Catalog (Download)</span>
+            </a>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 font-sans">

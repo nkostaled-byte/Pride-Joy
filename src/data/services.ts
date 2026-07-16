@@ -234,12 +234,12 @@ export const clientCompanies: ClientCompany[] = [
     shortDesc: 'Pietermaritzburg-based aluminium giant, utilizing staff culture diagnostics and corporate training.',
   },
   {
-    name: 'Durban Tourism',
+    name: 'Regional Tourism Board',
     sector: 'Tourism',
-    shortDesc: 'The official municipal tourism authority, executing visitor satisfaction and intercept surveys.',
+    shortDesc: 'The official regional tourism authority, executing visitor satisfaction and intercept surveys.',
   },
   {
-    name: 'eThekwini Municipality',
+    name: 'Metropolitan Municipality',
     sector: 'Public Sector',
     shortDesc: 'Local metropolitan government, utilizing extensive social and multilingual community research.',
   },
@@ -254,7 +254,7 @@ export const clientCompanies: ClientCompany[] = [
     shortDesc: 'Small Enterprise Development Agency, supplying business training workshops and consulting audits.',
   },
   {
-    name: 'Durban Film Office',
+    name: 'Metro Film Commission',
     sector: 'Tourism',
     shortDesc: 'Promoting local media, measuring regional film industry economic impacts.',
   },

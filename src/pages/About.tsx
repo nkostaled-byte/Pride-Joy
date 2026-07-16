@@ -24,7 +24,7 @@ export default function About({ setCurrentPage }: AboutProps) {
       id: 'wcu-2',
       icon: <Users className="w-6 h-6 text-brand-orange" />,
       title: 'Multidisciplinary Team',
-      desc: 'Our Durban analyst core covers statistics, anthropology, marketing strategy, and financial advisory to give multi-dimensional advice.',
+      desc: 'Our analyst core covers statistics, anthropology, marketing strategy, and financial advisory to give multi-dimensional advice.',
     },
     {
       id: 'wcu-3',
@@ -49,11 +49,6 @@ export default function About({ setCurrentPage }: AboutProps) {
         
         {/* Page Header */}
         <div className="text-center max-w-3xl mx-auto space-y-4">
-          <div className="inline-flex items-center space-x-2 bg-brand-maroon/5 border border-brand-maroon/10 px-3.5 py-1 rounded-full">
-            <span className="font-sans font-bold text-xs text-brand-maroon uppercase tracking-wide">
-              Established 2013 • Durban Born
-            </span>
-          </div>
           <h1 className="font-display font-extrabold text-4xl md:text-5xl text-gray-900 tracking-tight">
             Our Story & Core Philosophy
           </h1>
@@ -71,7 +66,7 @@ export default function About({ setCurrentPage }: AboutProps) {
               Founded on Local Insight & Academic Rigor
             </h2>
             <p>
-              In 2013, Managing Director <strong>Nkosingiphile Mchunu</strong> established Pride and Joy Consultants in Durban, South Africa. The objective was clear: to bridge the gap between abstract corporate marketing and the deep, nuanced cultural and economic realities of the regional South African consumer.
+              In 2013, our Managing Director established Pride and Joy Consultants in South Africa. The objective was clear: to bridge the gap between abstract corporate marketing and the deep, nuanced cultural and economic realities of the regional South African consumer.
             </p>
             <p>
               Over the last decade, our firm has evolved into a robust, 100% black-owned (Pty) Ltd consulting house. We serve metropolitan municipalities, state utilities like Umgeni Water, heavy manufacturers like Hulamin, and hundreds of local SMEs. As a registered member of the <strong>South African Market Research Association (SAMRA)</strong>, we hold our analysts to the highest national standards of quantitative accuracy and ethical qualitative fieldwork.
@@ -159,7 +154,7 @@ export default function About({ setCurrentPage }: AboutProps) {
             <Users className="w-8 h-8" />
           </div>
           <h3 className="font-display font-extrabold text-2xl text-gray-900 tracking-tight">
-            Consult Directly with Nkosingiphile Mchunu
+            Consult Directly with Our Senior Advisors
           </h3>
           <p className="font-sans text-sm text-gray-500 max-w-xl mx-auto leading-relaxed">
             Whether you are a municipal manager planning community audits, or an SME founder seeking targeted growth frameworks, let's schedule an initial virtual or in-person workshop.

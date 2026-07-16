@@ -20,9 +20,16 @@ export default function Home({ setCurrentPage }: HomeProps) {
   };
 
   const clientsList = [
-    'Umgeni Water', 'Protea Engineering', 'Hulamin', 'Durban Tourism', 
-    'eThekwini Municipality', 'Sizakala Centres', 'SEDA', 
-    'Durban Film Office', 'Atlas Finance', 'Assupol'
+    { name: 'Umgeni Water', url: 'https://umngeni-uthukela.co.za/' },
+    { name: 'Protea Engineering', url: 'https://www.protea.co.za' },
+    { name: 'Hulamin', url: 'https://www.hulamin.co.za' },
+    { name: 'Regional Tourism', url: 'https://www.zulu.org.za' },
+    { name: 'Metropolitan Municipality', url: 'https://www.durban.gov.za' },
+    { name: 'Sizakala Centres', url: 'https://www.durban.gov.za' },
+    { name: 'SEDA', url: 'https://www.seda.org.za' },
+    { name: 'Metro Film Commission', url: 'https://film.durban.gov.za/' },
+    { name: 'Atlas Finance', url: 'https://www.atlasfinance.co.za' },
+    { name: 'Assupol', url: 'https://www.assupol.co.za' }
   ];
 
   return (
@@ -49,100 +56,34 @@ export default function Home({ setCurrentPage }: HomeProps) {
         <div className="absolute inset-0 bg-[#250808]/45 mix-blend-multiply z-5 pointer-events-none" />
         <div className="absolute inset-0 bg-black/35 z-5 pointer-events-none" />
 
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-            {/* Left Copy Column */}
-            <div className="lg:col-span-7 space-y-8 text-left">
-              {/* Trust Badge */}
-              <div className="inline-flex items-center space-x-2 bg-white/10 border border-white/20 px-3.5 py-1.5 rounded-full backdrop-blur-xs">
-                <Award className="w-4 h-4 text-brand-orange" />
-                <span className="font-sans font-bold text-xs text-white uppercase tracking-wide">
-                  Established 2013 • BBBEE Level 1 Rated
-                </span>
-              </div>
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full text-center py-12 md:py-20">
+          <div className="space-y-8">
+            {/* Display Headline */}
+            <h1 className="font-display font-extrabold text-4xl sm:text-5xl md:text-6xl text-white tracking-tight leading-[1.08] max-w-3xl mx-auto">
+              Turning <span className="text-orange-200">Research</span> into <span className="text-brand-orange">Strategic Growth</span>
+            </h1>
 
-              {/* Display Headline */}
-              <h1 className="font-display font-extrabold text-4xl sm:text-5xl md:text-6xl text-white tracking-tight leading-[1.08]">
-                Turning <span className="text-orange-200">Rigorous Research</span> into <span className="text-brand-orange">Strategic Growth</span>
-              </h1>
+            {/* Sub-headline */}
+            <p className="font-sans text-base md:text-lg text-gray-100 leading-relaxed max-w-2xl mx-auto">
+              Pride and Joy Consultants is a premier professional business advisory. We empower public sector agencies, multinational corporations, and local SMEs with scientifically sound market insights and practical commercial training.
+            </p>
 
-              {/* Sub-headline */}
-              <p className="font-sans text-base md:text-lg text-gray-100 leading-relaxed max-w-2xl">
-                Pride and Joy Consultants is a premier Durban-based business advisory. We empower public sector agencies, multinational corporations, and local SMEs with scientifically sound market insights and practical commercial training.
-              </p>
-
-              {/* Interactive Buttons */}
-              <div className="flex flex-col sm:flex-row gap-3">
-                <button
-                  onClick={() => handleLearnMore('book-online')}
-                  className="inline-flex items-center justify-center px-6 py-4 rounded-xl bg-brand-maroon text-white font-sans font-bold text-base shadow-lg hover:bg-brand-maroon-hover hover:shadow-xl transition-all duration-200"
-                >
-                  Book a Consultation
-                  <ArrowRight className="w-4 h-4 ml-2" />
-                </button>
-                
-                <button
-                  onClick={() => handleLearnMore('about')}
-                  className="inline-flex items-center justify-center px-6 py-4 rounded-xl bg-white border border-gray-200 text-gray-700 font-sans font-bold text-base hover:bg-gray-50 hover:text-brand-maroon transition-all duration-200"
-                >
-                  Discover Our Story
-                </button>
-              </div>
-
-              {/* Mini Features */}
-              <div className="grid grid-cols-2 gap-4 pt-4 border-t border-white/20">
-                <div className="flex items-center space-x-2 text-sm text-gray-200">
-                  <CheckCircle2 className="w-5 h-5 text-brand-orange shrink-0" />
-                  <span className="font-sans font-medium">SAMRA Registered Member</span>
-                </div>
-                <div className="flex items-center space-x-2 text-sm text-gray-200">
-                  <CheckCircle2 className="w-5 h-5 text-white shrink-0" />
-                  <span className="font-sans font-medium">100% Black-Owned Firm</span>
-                </div>
-              </div>
-            </div>
-
-            {/* Right Abstract Visual Column */}
-            <div className="lg:col-span-5 relative flex justify-center z-10">
-              {/* Beautiful overlapping card visual container */}
-              <div className="relative w-full max-w-md aspect-square bg-gradient-to-tr from-brand-maroon via-brand-maroon to-brand-orange rounded-3xl p-1 shadow-2xl overflow-hidden">
-                <div className="absolute inset-0 bg-black/10 mix-blend-overlay" />
-                
-                {/* Content Inside the visual card */}
-                <div className="h-full w-full bg-gray-900/95 rounded-2xl p-8 flex flex-col justify-between text-white relative">
-                  <div className="absolute top-0 right-0 w-32 h-32 bg-brand-orange opacity-10 rounded-full blur-2xl" />
-                  
-                  {/* Card Header */}
-                  <div className="flex justify-between items-start">
-                    <div className="w-12 h-12 rounded-xl bg-brand-maroon flex items-center justify-center text-xl font-bold font-display shadow-md">
-                      PJ
-                    </div>
-                    <span className="text-[10px] tracking-widest uppercase font-bold text-brand-orange px-2.5 py-1 bg-brand-orange/10 border border-brand-orange/20 rounded-md">
-                      Active Analytics
-                    </span>
-                  </div>
-
-                  {/* Card Body Metrics */}
-                  <div className="space-y-4">
-                    <div className="space-y-1">
-                      <span className="text-gray-400 text-xs font-bold uppercase tracking-wider block">Local Durban Impact</span>
-                      <p className="text-2xl font-display font-extrabold tracking-tight">12+ Years Professional Advisory</p>
-                    </div>
-                    <div className="h-1.5 w-full bg-gray-800 rounded-full overflow-hidden">
-                      <div className="h-full w-[86%] bg-gradient-to-r from-brand-maroon to-brand-orange rounded-full" />
-                    </div>
-                    <div className="flex justify-between text-xs font-mono text-gray-400">
-                      <span>Establishment: 2013</span>
-                      <span className="text-brand-orange font-bold">86% Client Retention</span>
-                    </div>
-                  </div>
-
-                  {/* Testimonial Quote */}
-                  <p className="font-sans text-xs italic text-gray-300 leading-relaxed border-l-2 border-brand-maroon pl-3 py-1">
-                    "We do not supply static reports. We deliver scientific recommendations that immediately impact operational strategy and local community development."
-                  </p>
-                </div>
-              </div>
+            {/* Interactive Buttons */}
+            <div className="flex flex-col sm:flex-row gap-3 justify-center max-w-md mx-auto">
+              <button
+                onClick={() => handleLearnMore('book-online')}
+                className="inline-flex items-center justify-center px-6 py-4 rounded-xl bg-brand-maroon text-white font-sans font-bold text-base shadow-lg hover:bg-brand-maroon-hover hover:shadow-xl transition-all duration-200 w-full sm:w-auto"
+              >
+                Book a Consultation
+                <ArrowRight className="w-4 h-4 ml-2" />
+              </button>
+              
+              <button
+                onClick={() => handleLearnMore('about')}
+                className="inline-flex items-center justify-center px-6 py-4 rounded-xl bg-white border border-gray-200 text-gray-700 font-sans font-bold text-base hover:bg-gray-50 hover:text-brand-maroon transition-all duration-200 w-full sm:w-auto"
+              >
+                Discover Our Story
+              </button>
             </div>
           </div>
         </div>
@@ -247,14 +188,17 @@ export default function Home({ setCurrentPage }: HomeProps) {
           
           <div className="grid grid-cols-2 md:grid-cols-5 gap-4 lg:gap-6">
             {clientsList.map((client, idx) => (
-              <div 
+              <a 
                 key={idx}
-                className="flex items-center justify-center py-4 px-6 bg-white border border-gray-100 rounded-xl hover:border-brand-maroon/20 hover:shadow-xs transition-all duration-200"
+                href={client.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center justify-center py-4 px-6 bg-white border border-gray-100 rounded-xl hover:border-brand-maroon/30 hover:shadow-md transition-all duration-200 group"
               >
-                <span className="font-display font-bold text-xs md:text-sm text-gray-500 tracking-tight text-center truncate select-none">
-                  {client}
+                <span className="font-display font-bold text-xs md:text-sm text-gray-500 group-hover:text-brand-maroon tracking-tight text-center truncate duration-200">
+                  {client.name}
                 </span>
-              </div>
+              </a>
             ))}
           </div>
         </div>
@@ -268,7 +212,7 @@ export default function Home({ setCurrentPage }: HomeProps) {
             Ready to Translate Market Data into Practical Enterprise Profitability?
           </h2>
           <p className="font-sans text-white/80 max-w-xl mx-auto text-sm md:text-base leading-relaxed">
-            Let's structure a custom methodology for your business. Book a session to consult directly with Nkosingiphile Mchunu.
+            Let's structure a custom methodology for your business. Book a session to consult directly with our senior consultants.
           </p>
           <div className="pt-2">
             <button
